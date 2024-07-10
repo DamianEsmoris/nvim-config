@@ -1,0 +1,12 @@
+{
+  "coc.nvim": { "branch": "master", "commit": "a00ff123abe37a99962fd4c64b83479a9b68bbde" },
+  "gitsigns.nvim": { "branch": "main", "commit": "375c44bdfdde25585466a966f00c2e291db74f2d" },
+  "lazy.nvim": { "branch": "main", "commit": "3f13f080434ac942b150679223d54f5ca91e0d52" },
+  "plenary.nvim": { "branch": "master", "commit": "08e301982b9a057110ede7a735dd1b5285eb341f" },
+  "telescope.nvim": { "branch": "master", "commit": "35f94f0ef32d70e3664a703cefbe71bd1456d899" },
+  "vim-dadbod": { "branch": "master", "commit": "7888cb7164d69783d3dce4e0283decd26b82538b" },
+  "vim-dadbod-completion": { "branch": "master", "commit": "8c9051c1cfc73fcf5bfe9a84db7097e4f7c0180d" },
+  "vim-dadbod-ui": { "branch": "master", "commit": "b6f72022f04f02e3d8b06d9a334fa946460315ac" },
+  "vim-fugitive": { "branch": "master", "commit": "8c8cdf4405cb8bdb70dd9812a33bb52363a87dbc" },
+  "zen-mode.nvim": { "branch": "main", "commit": "21976479c7a0146b05a42707cf91c86b1e510945" }
+}

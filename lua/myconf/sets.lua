@@ -3,6 +3,12 @@ local g = vim.g;
 
 g.mapleader = ',';
 
+-- Background issues
+--	(in Alacritty the background wasn't transparent, this poc changes it)
+for _,v in pairs {"Normal", "NormalFloat", "NonText"} do
+	vim.api.nvim_set_hl(0, v, { bg = "none" })
+end
+
 -- Line numbers
 opt.number = true;
 opt.relativenumber = true;

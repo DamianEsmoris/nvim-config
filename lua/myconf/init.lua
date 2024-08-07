@@ -1,4 +1,5 @@
 require "myconf.sets"
+require "myconf.utils"
 require "myconf.keymaps"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

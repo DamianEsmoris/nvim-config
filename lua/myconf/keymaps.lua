@@ -17,3 +17,7 @@ normal_mode("<leader>d", '"_d')
 
 -- Exit term mode
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+
+-- Custom commands
+normal_mode("<F5>", ":RunWholeFile<CR>")
+visual_mode("<F5>", ":RunSnippet<CR>")

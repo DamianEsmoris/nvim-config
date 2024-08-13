@@ -1,8 +1,7 @@
 local langs = require "myconf.myplugins.langs";
 
 local function copy_table(t)
-  local u = { }
-  for k, v in pairs(t) do u[k] = v end
+  local u = { } for k, v in pairs(t) do u[k] = v end
   return setmetatable(u, getmetatable(t))
 end
 
@@ -39,7 +38,7 @@ return {
 	{
 		name="RunSnippet",
 		callback=function()
-			local lang_cmd = langs["interpreted"][vim.bo.filetype]
+			local lang_cmd = langs["run"]["interpreted"][vim.bo.filetype]
 			if lang_cmd ~= nil then
 				local lines = get_selected_lines()
 
@@ -61,7 +60,7 @@ return {
 	{
 		name="RunWholeFile",
 		callback=function()
-			local langs_union = concat_table_w_keys(langs["compiled"], langs["interpreted"])
+			local langs_union = concat_table_w_keys(langs["run"]["compiled"], langs["run"]["interpreted"])
 			local lang_cmd = langs_union[vim.bo.filetype]
 			if lang_cmd ~= nil then
 				local file = vim.api.nvim_buf_get_name(0)
@@ -72,5 +71,21 @@ return {
 			end
 		end,
 		args={ nargs = '*', desc = 'Run the whole file' }
+	},
+
+	{
+		name="TestWholeFile",
+		callback=function()
+			local langs_union = concat_table_w_keys(langs["test"]["compiled"], langs["test"]["interpreted"])
+			local lang_cmd = langs_union[vim.bo.filetype]
+			if lang_cmd ~= nil then
+				local file = vim.api.nvim_buf_get_name(0)
+				lang_cmd = replace_cmd_placeholders(lang_cmd, file)
+				vim.api.nvim_command(":!" .. lang_cmd)
+			else
+				print("No tests command found for the current file type.")
+			end
+		end,
+		args={ nargs = '*', desc = 'Test the whole file' }
 	}
 }

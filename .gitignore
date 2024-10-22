@@ -1,2 +1,4 @@
 *.slug
 *.spl
+spell/
+lazy-lock.json

@@ -12,12 +12,16 @@ function normal_and_visual_mode(keymap, action)
 	visual_mode(keymap, action)
 end
 
+-- Splits
+normal_mode("<C-k>", "<C-w>2-")
+normal_mode("<C-j>", "<C-w>2+")
+
 -- Explorer
 normal_mode("<leader>b", ":Lexplore<CR>")
 
 -- Buffers
-visual_mode("<leader>y", '"*y')
-visual_mode("<leader>p", '"*p')
+visual_mode("<leader>y", '"+y')
+normal_and_visual_mode("<leader>p", '"+p')
 normal_and_visual_mode("<leader>d", '"_d')
 
 -- Exit term mode

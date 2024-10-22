@@ -3,7 +3,8 @@ return {
 		interpreted= {
 			javascript="if [ -f package.json ]; then npm i && npm run; else node _file; fi",
 			lua="lua _file",
-			php="[[ $(head -n1 _file) == \"<?php\" ]] && php _file || echo -e \"<?php\\n$(cat _file)\" | php"
+			php="[[ $(head -n1 _file) == \"<?php\" ]] && php _file || echo -e \"<?php\\n$(cat _file)\" | php",
+			sh="bash _file"
 		},
 		compiled= {
 			pascal="fpc _file && if [ -f _filename ]; then _filename; rm _filename.o; rm _filename; fi",

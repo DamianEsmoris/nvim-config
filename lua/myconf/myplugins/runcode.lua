@@ -18,7 +18,7 @@ local function get_selected_lines()
 end
 
 local function remove_file_extension(file)
-	return file:gsub("%.(.+)$", "") or file
+	return file:gsub('%.[a-z]+$', '') or file
 end
 
 local function replace_cmd_placeholders(cmd, file)

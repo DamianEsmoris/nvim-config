@@ -15,6 +15,8 @@ end
 -- Splits
 normal_mode("<C-k>", "<C-w>2-")
 normal_mode("<C-j>", "<C-w>2+")
+normal_mode("<C-l>", "<C-w>2>")
+normal_mode("<C-h>", "<C-w>2<")
 
 -- Explorer
 normal_mode("<leader>b", ":Lexplore<CR>")

@@ -21,9 +21,15 @@ local function remove_file_extension(file)
 	return file:gsub('%.[a-z]+$', '') or file
 end
 
-local function replace_cmd_placeholders(cmd, file)
-	local filename = remove_file_extension(file)
-	return cmd:gsub("_filename", filename):gsub("_file", file)
+local function replace_cmd_placeholders(cmd, values)
+    if not values then
+        return cmp
+    end
+
+    for k, v in pairs(values) do
+        cmd = cmd:gsub(k, v)
+    end
+    return cmd
 end
 
 local function write_tmp_snippet_file(content)
@@ -48,7 +54,11 @@ return {
 				end
 
 				local tmpfile = write_tmp_snippet_file(lines)
-				lang_cmd = replace_cmd_placeholders(lang_cmd, tmpfile)
+				lang_cmd = replace_cmd_placeholders(lang_cmd, {
+                    _file= tmpfile,
+                    _filename= tmpfile,
+                    _snippet= 1
+                })
 				vim.api.nvim_command(":!" .. lang_cmd)
 			else
 				print("No interpreter language found for the current file type.")
@@ -64,7 +74,13 @@ return {
 			local lang_cmd = langs_union[vim.bo.filetype]
 			if lang_cmd ~= nil then
 				local file = vim.api.nvim_buf_get_name(0)
-				lang_cmd = replace_cmd_placeholders(lang_cmd, file)
+                local filename = remove_file_extension(file)
+
+				lang_cmd = replace_cmd_placeholders(lang_cmd, {
+                    _file = file,
+                    _filename = filename,
+                    _snippet = 0
+                })
 				vim.api.nvim_command(":!" .. lang_cmd)
 			else
 				print("No compiler/interpreter found for the current file type.")
@@ -80,7 +96,31 @@ return {
 			local lang_cmd = langs_union[vim.bo.filetype]
 			if lang_cmd ~= nil then
 				local file = vim.api.nvim_buf_get_name(0)
-				lang_cmd = replace_cmd_placeholders(lang_cmd, file)
+				lang_cmd = replace_cmd_placeholders(lang_cmd, {
+                    _file = file,
+                    _filename = filename,
+                    _snippet = 0
+                })
+				vim.api.nvim_command(":!" .. lang_cmd)
+			else
+				print("No compiler/interpreter found for the current file type.")
+			end
+		end,
+		args={ nargs = '*', desc = 'Run the whole file' }
+	},
+
+	{
+		name="TestWholeFile",
+		callback=function()
+			local langs_union = concat_table_w_keys(langs["test"]["compiled"], langs["test"]["interpreted"])
+			local lang_cmd = langs_union[vim.bo.filetype]
+			if lang_cmd ~= nil then
+				local file = vim.api.nvim_buf_get_name(0)
+				lang_cmd = replace_cmd_placeholders(lang_cmd, {
+                    _file = file,
+                    _filename = filename,
+                    _snippet = 0
+                })
 				vim.api.nvim_command(":!" .. lang_cmd)
 			else
 				print("No tests command found for the current file type.")
